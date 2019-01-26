@@ -73,17 +73,17 @@ public class TimetableView extends LinearLayout {
     }
 
     private void getAttrs(AttributeSet attrs) {
-        TypedArray a = context.obtainStyledAttributes(attrs, R.styleable.tableAttrs);
-        rowCount = a.getInt(R.styleable.tableAttrs_row_count, DEFAULT_ROW_COUNT) - 1;
-        columnCount = a.getInt(R.styleable.tableAttrs_column_count, DEFAULT_COLUMN_COUNT);
-        cellHeight = a.getDimensionPixelSize(R.styleable.tableAttrs_cell_height, dp2Px(DEFAULT_CELL_HEIGHT_DP));
-        sideCellWidth = a.getDimensionPixelSize(R.styleable.tableAttrs_side_cell_width, dp2Px(DEFAULT_SIDE_CELL_WIDTH_DP));
-        int titlesId = a.getResourceId(R.styleable.tableAttrs_header_title, R.array.default_header_title);
+        TypedArray a = context.obtainStyledAttributes(attrs, R.styleable.TimetableView);
+        rowCount = a.getInt(R.styleable.TimetableView_row_count, DEFAULT_ROW_COUNT) - 1;
+        columnCount = a.getInt(R.styleable.TimetableView_column_count, DEFAULT_COLUMN_COUNT);
+        cellHeight = a.getDimensionPixelSize(R.styleable.TimetableView_cell_height, dp2Px(DEFAULT_CELL_HEIGHT_DP));
+        sideCellWidth = a.getDimensionPixelSize(R.styleable.TimetableView_side_cell_width, dp2Px(DEFAULT_SIDE_CELL_WIDTH_DP));
+        int titlesId = a.getResourceId(R.styleable.TimetableView_header_title, R.array.default_header_title);
         headerTitle = a.getResources().getStringArray(titlesId);
-        int colorsId = a.getResourceId(R.styleable.tableAttrs_sticker_colors, R.array.default_sticker_color);
+        int colorsId = a.getResourceId(R.styleable.TimetableView_sticker_colors, R.array.default_sticker_color);
         stickerColors = a.getResources().getStringArray(colorsId);
-        startTime = a.getInt(R.styleable.tableAttrs_start_time, DEFAULT_START_TIME);
-        headerHighlightColor = a.getColor(R.styleable.tableAttrs_header_highlight_color, getResources().getColor(R.color.default_header_highlight_color));
+        startTime = a.getInt(R.styleable.TimetableView_start_time, DEFAULT_START_TIME);
+        headerHighlightColor = a.getColor(R.styleable.TimetableView_header_highlight_color, getResources().getColor(R.color.default_header_highlight_color));
         a.recycle();
     }
 
