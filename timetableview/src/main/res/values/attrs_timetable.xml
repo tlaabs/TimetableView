@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="TimetableView">
+        <attr name="row_count" format="integer"/>
+        <attr name="column_count" format="integer"/>
+        <attr name="cell_height" format="dimension"/>
+        <attr name="side_cell_width" format="dimension"/>
+        <attr name="header_title" format="reference"/>
+        <attr name="sticker_colors" format="reference"/>
+        <attr name="start_time" format="integer"/>
+        <attr name="header_highlight_color" format="color"/>
+    </declare-styleable>
+</resources>
