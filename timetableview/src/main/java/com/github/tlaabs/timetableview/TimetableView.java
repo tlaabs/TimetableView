@@ -103,6 +103,35 @@ public class TimetableView extends LinearLayout {
         stickerSelectedListener = listener;
     }
 
+    /**
+     * date : 2019-02-08
+     * get all schedules TimetableView has.
+     */
+    public ArrayList<Schedule> getAllSchedulesInStickers() {
+        ArrayList<Schedule> allSchedules = new ArrayList<Schedule>();
+        for (int key : stickers.keySet()) {
+            for (Schedule schedule : stickers.get(key).getSchedules()) {
+                allSchedules.add(schedule);
+            }
+        }
+        return allSchedules;
+    }
+
+    /**
+     * date : 2019-02-08
+     * Used in Edit mode, To check a invalidate schedule.
+     */
+    public ArrayList<Schedule> getAllSchedulesInStickersExceptIdx(int idx) {
+        ArrayList<Schedule> allSchedules = new ArrayList<Schedule>();
+        for (int key : stickers.keySet()) {
+            if (idx == key) continue;
+            for (Schedule schedule : stickers.get(key).getSchedules()) {
+                allSchedules.add(schedule);
+            }
+        }
+        return allSchedules;
+    }
+
     public void add(ArrayList<Schedule> schedules) {
         add(schedules, -1);
     }
