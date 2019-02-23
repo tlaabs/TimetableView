@@ -229,7 +229,7 @@ public class TimetableView extends LinearLayout {
 
         for (i = 0; i < size; i++) {
             for (TextView v : stickers.get(orders[i]).getView()) {
-                v.setBackgroundColor(Color.parseColor(stickerColors[i % (colorSize + 1)]));
+                v.setBackgroundColor(Color.parseColor(stickerColors[i % (colorSize)]));
             }
         }
 
