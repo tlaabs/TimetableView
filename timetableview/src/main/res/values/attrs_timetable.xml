@@ -9,5 +9,11 @@
         <attr name="sticker_colors" format="reference"/>
         <attr name="start_time" format="integer"/>
         <attr name="header_highlight_color" format="color"/>
+        <attr name="header_highlight_type" format="enum">
+            <enum name="color" value="0"/>
+            <enum name="image" value="1"/>
+        </attr>
+        <attr name="header_highlight_image_size" format="dimension"/>
+        <attr name="header_highlight_image" format="reference"/>
     </declare-styleable>
 </resources>

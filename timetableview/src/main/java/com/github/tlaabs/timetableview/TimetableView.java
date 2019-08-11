@@ -7,12 +7,16 @@ import android.content.res.TypedArray;
 import android.graphics.Color;
 import android.graphics.Point;
 import android.graphics.Typeface;
+import android.graphics.drawable.Drawable;
+import android.support.v7.content.res.AppCompatResources;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.util.TypedValue;
 import android.view.Display;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TableLayout;
@@ -56,6 +60,10 @@ public class TimetableView extends LinearLayout {
 
     private OnStickerSelectedListener stickerSelectedListener = null;
 
+    private HighlightMode highlightMode = HighlightMode.COLOR;
+    private int headerHighlightImageSize;
+    private Drawable headerHighlightImage = null;
+
     public TimetableView(Context context) {
         super(context, null);
         this.context = context;
@@ -84,6 +92,11 @@ public class TimetableView extends LinearLayout {
         stickerColors = a.getResources().getStringArray(colorsId);
         startTime = a.getInt(R.styleable.TimetableView_start_time, DEFAULT_START_TIME);
         headerHighlightColor = a.getColor(R.styleable.TimetableView_header_highlight_color, getResources().getColor(R.color.default_header_highlight_color));
+        int highlightTypeValue = a.getInteger(R.styleable.TimetableView_header_highlight_type,0);
+        if(highlightTypeValue == 0) highlightMode = HighlightMode.COLOR;
+        else if(highlightTypeValue == 1) highlightMode = HighlightMode.IMAGE;
+        headerHighlightImageSize = a.getDimensionPixelSize(R.styleable.TimetableView_header_highlight_image_size, dp2Px(24));
+        headerHighlightImage = a.getDrawable(R.styleable.TimetableView_header_highlight_image);
         a.recycle();
     }
 
@@ -209,11 +222,32 @@ public class TimetableView extends LinearLayout {
 
     public void setHeaderHighlight(int idx) {
         TableRow row = (TableRow) tableHeader.getChildAt(0);
-        TextView tx = (TextView) row.getChildAt(idx);
-        tx.setTextColor(Color.parseColor("#FFFFFF"));
-        tx.setBackgroundColor(headerHighlightColor);
-        tx.setTypeface(null, Typeface.BOLD);
-        tx.setTextSize(TypedValue.COMPLEX_UNIT_DIP,DEFAULT_HEADER_HIGHLIGHT_FONT_SIZE_DP);
+        View element = row.getChildAt(idx);
+        if(highlightMode == HighlightMode.COLOR) {
+            TextView tx = (TextView)element;
+            tx.setTextColor(Color.parseColor("#FFFFFF"));
+            tx.setBackgroundColor(headerHighlightColor);
+            tx.setTypeface(null, Typeface.BOLD);
+            tx.setTextSize(TypedValue.COMPLEX_UNIT_DIP, DEFAULT_HEADER_HIGHLIGHT_FONT_SIZE_DP);
+        }
+        else if(highlightMode == HighlightMode.IMAGE){
+            RelativeLayout outer = new RelativeLayout(context);
+            outer.setLayoutParams(createTableRowParam(cellHeight));
+            ImageView iv = new ImageView(context);
+            RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(headerHighlightImageSize,headerHighlightImageSize);
+            params.addRule(RelativeLayout.CENTER_IN_PARENT,RelativeLayout.TRUE);
+            iv.setLayoutParams(params);
+            iv.setScaleType(ImageView.ScaleType.CENTER_CROP);
+
+            row.removeViewAt(idx);
+            outer.addView(iv);
+            row.addView(outer,idx);
+
+            if(headerHighlightImage != null) {
+                iv.setImageDrawable(headerHighlightImage);
+            }
+
+        }
     }
 
     private void setStickerColor() {
