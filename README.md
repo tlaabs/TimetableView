@@ -23,7 +23,7 @@ allprojects {
 Add the dependency
 ```gradle
 dependencies {
-	implementation 'com.github.tlaabs:TimetableView:1.0.2'
+	implementation 'com.github.tlaabs:TimetableView:1.0.3'
 }
 ```
 
