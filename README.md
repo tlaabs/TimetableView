@@ -6,7 +6,9 @@
 Android Library that creates simple time table.
 
 
-![img0](https://postfiles.pstatic.net/MjAxOTAxMjdfMTUz/MDAxNTQ4NTcyNTU5NTk4.M9hWyDvljjkoBDW-naLrTRqRAXUM8WRUyZXptTLKbs8g.b0FN12d8Cmxp5OWZqlQcusL_mJYNKgx6a_XLe_1ALOog.JPEG.tlaabs/Screenshot_Air.jpg?type=w773) 
+![img0](https://postfiles.pstatic.net/MjAxOTAxMjdfMTUz/MDAxNTQ4NTcyNTU5NTk4.M9hWyDvljjkoBDW-naLrTRqRAXUM8WRUyZXptTLKbs8g.b0FN12d8Cmxp5OWZqlQcusL_mJYNKgx6a_XLe_1ALOog.JPEG.tlaabs/Screenshot_Air.jpg?type=w773)
+![img1](https://user-images.githubusercontent.com/8165219/62833150-b88d3180-bc74-11e9-9b20-02a0ad03e778.jpg) 
+
 
 ## How to import
 Add it in your root build.gradle
@@ -52,11 +54,14 @@ app:header_title="@array/my_header_title" // sets header title (default:eng)
 app:sticker_colors="@array/my_sticker_color" // sets schedule sticker colors
 app:start_time="9" // sets start time (range : 0 ~ 24)
 app:header_highlight_color="@color/highlight" // sets header highlight color (default : #74a4f3)
+app:header_highlight_image="@drawable/ic_kitty" // set header highlight image src
+app:header_highlight_image_size="36dp" // set header highlight image width,height(square)
+app:header_highlight_type="image" // set header highlight type - color/image (default : color)
 ```
 
 ### Change header title
 First, write a string-array as below on values/strings.xml. 
-```gradle
+```xml
 <string-array name="my_header_title">
     <item></item>
     <item>Mon</item>
@@ -67,7 +72,7 @@ First, write a string-array as below on values/strings.xml.
 </string-array>
 ```
 Then, apply that to timetable attribute.
-```gradle
+```xml
 <com.github.tlaabs.timetableview.TimetableView
     android:id="@+id/timetable"
     android:layout_width="match_parent"
@@ -116,6 +121,27 @@ timetable.removeAll(); // remove all items
 ```
 
 ### Highlight header
+**1.Color type(Default)**
+```xml
+<com.github.tlaabs.timetableview.TimetableView
+    android:id="@+id/timetable"
+    android:layout_width="match_parent"
+    android:layout_height="0dp"
+    android:layout_weight="1"
+    app:header_highlight_type="color" />
+```
+**2.Image type**
+```xml
+<com.github.tlaabs.timetableview.TimetableView
+    android:id="@+id/timetable"
+    android:layout_width="match_parent"
+    android:layout_height="0dp"
+    android:layout_weight="1"
+    app:header_highlight_image="@drawable/ic_kitty"
+    app:header_highlight_image_size="36dp"
+    app:header_highlight_type="image" />
+```
+Then,
 ```java
 timetable.setHeaderHighlight(idx);
 ```
