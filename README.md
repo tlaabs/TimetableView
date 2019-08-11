@@ -48,10 +48,32 @@ app:row_count="12" // sets number of table rows (default:12)
 app:column_count="6" // sets number of table column (default:6)
 app:cell_height="50dp" // sets table cell height (default:50dp)
 app:side_cell_width="30dp" // sets left side cell width (default:30dp)
-app:header_title="@array/my_header_title" // sets header title
+app:header_title="@array/my_header_title" // sets header title (default:eng)
 app:sticker_colors="@array/my_sticker_color" // sets schedule sticker colors
 app:start_time="9" // sets start time (range : 0 ~ 24)
 app:header_highlight_color="@color/highlight" // sets header highlight color (default : #74a4f3)
+```
+
+### Change header title
+First, write a string-array as below on values/strings.xml. 
+```gradle
+<string-array name="my_header_title">
+    <item></item>
+    <item>Mon</item>
+    <item>Tue</item>
+    <item>Wed</item>
+    <item>Thu</item>
+    <item>Fri</item>
+</string-array>
+```
+Then, apply that to timetable attribute.
+```gradle
+<com.github.tlaabs.timetableview.TimetableView
+    android:id="@+id/timetable"
+    android:layout_width="match_parent"
+    android:layout_height="0dp"
+    android:layout_weight="1"
+    app:header_title="@array/header_title" />
 ```
 
 ### OnStickerSelectedListener
