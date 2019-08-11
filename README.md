@@ -73,7 +73,7 @@ Then, apply that to timetable attribute.
     android:layout_width="match_parent"
     android:layout_height="0dp"
     android:layout_weight="1"
-    app:header_title="@array/header_title" />
+    app:header_title="@array/my_header_title" />
 ```
 
 ### OnStickerSelectedListener
