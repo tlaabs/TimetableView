@@ -221,6 +221,7 @@ public class TimetableView extends LinearLayout {
     }
 
     public void setHeaderHighlight(int idx) {
+        if(idx < 0)return;
         TableRow row = (TableRow) tableHeader.getChildAt(0);
         View element = row.getChildAt(idx);
         if(highlightMode == HighlightMode.COLOR) {
