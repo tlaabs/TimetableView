@@ -390,7 +390,7 @@ public class TimetableView extends LinearLayout {
         void OnStickerSelected(int idx, ArrayList<Schedule> schedules);
     }
 
-    static class Builder {
+    public static class Builder {
         private Context context;
         private int rowCount;
         private int columnCount;
