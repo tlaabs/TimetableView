@@ -150,7 +150,7 @@ public class TimetableView extends LinearLayout {
     }
 
     private void add(final ArrayList<Schedule> schedules, int specIdx) {
-        final int count = specIdx < 0 ? ++stickerCount : specIdx;
+        int count = specIdx < 0 ? ++stickerCount : specIdx;
         Sticker sticker = new Sticker();
         for (Schedule schedule : schedules) {
             TextView tv = new TextView(context);
@@ -163,11 +163,12 @@ public class TimetableView extends LinearLayout {
             tv.setTextSize(TypedValue.COMPLEX_UNIT_DIP, DEFAULT_STICKER_FONT_SIZE_DP);
             tv.setTypeface(null, Typeface.BOLD);
 
+            final int no = count;
             tv.setOnClickListener(new OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     if(stickerSelectedListener != null)
-                        stickerSelectedListener.OnStickerSelected(count, schedules);
+                        stickerSelectedListener.OnStickerSelected(no, schedules);
                 }
             });
 
@@ -175,6 +176,7 @@ public class TimetableView extends LinearLayout {
             sticker.addSchedule(schedule);
             stickers.put(count, sticker);
             stickerBox.addView(tv);
+            count++;
         }
         setStickerColor();
     }
