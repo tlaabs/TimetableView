@@ -1,20 +1,22 @@
 package com.github.tlaabs.timetableview;
 
-import android.widget.TextView;
+
+
+import android.view.View;
 
 import java.io.Serializable;
 import java.util.ArrayList;
 
 public class Sticker implements Serializable {
-    private ArrayList<TextView> view;
+    private ArrayList<View> view;
     private ArrayList<Schedule> schedules;
 
     public Sticker() {
-        this.view = new ArrayList<TextView>();
+        this.view = new ArrayList<View>();
         this.schedules = new ArrayList<Schedule>();
     }
 
-    public void addTextView(TextView v){
+    public void addView(View v){
         view.add(v);
     }
 
@@ -22,7 +24,7 @@ public class Sticker implements Serializable {
         schedules.add(schedule);
     }
 
-    public ArrayList<TextView> getView() {
+    public ArrayList<View> getView() {
         return view;
     }
 
