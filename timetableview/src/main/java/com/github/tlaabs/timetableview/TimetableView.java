@@ -57,6 +57,7 @@ public class TimetableView extends LinearLayout {
     private int stickerCount = -1;
 
     private OnStickerSelectedListener stickerSelectedListener = null;
+    private OnStickerSelectedLongClickListener stickerSelectedLongClickListener = null;
 
     private HighlightMode highlightMode = HighlightMode.COLOR;
     private int headerHighlightImageSize;
@@ -107,12 +108,17 @@ public class TimetableView extends LinearLayout {
         tableHeader = view.findViewById(R.id.table_header);
         tableBox = view.findViewById(R.id.table_box);
 
+
         createTable();
     }
 
     public void setOnStickerSelectEventListener(OnStickerSelectedListener listener) {
         stickerSelectedListener = listener;
     }
+    public void setOnStickerSelectEventListener(OnStickerSelectedLongClickListener listener) {
+        stickerSelectedLongClickListener = listener;
+    }
+
 
     /**
      * date : 2019-02-08
@@ -168,6 +174,15 @@ public class TimetableView extends LinearLayout {
                         stickerSelectedListener.OnStickerSelected(count, schedules);
                 }
             });
+            tv.setOnLongClickListener(new OnLongClickListener() {
+                @Override
+                public boolean onLongClick(View v) {
+                    if(stickerSelectedLongClickListener != null)
+                        stickerSelectedLongClickListener.OnStickerSelectedLongClick(count, schedules);
+                    return true;
+                }
+            });
+
 
             sticker.addTextView(tv);
             sticker.addSchedule(schedule);
@@ -386,6 +401,9 @@ public class TimetableView extends LinearLayout {
 
     public interface OnStickerSelectedListener {
         void OnStickerSelected(int idx, ArrayList<Schedule> schedules);
+    }
+    public interface OnStickerSelectedLongClickListener {
+        void OnStickerSelectedLongClick(int idx, ArrayList<Schedule> schedules);
     }
 
     static class Builder {
