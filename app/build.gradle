@@ -6,8 +6,8 @@ android {
         applicationId "com.github.omarb1989.timetableviewdemo"
         minSdkVersion 19
         targetSdkVersion 30
-        versionCode 4
-        versionName "1.0.3-fx1"
+        versionCode 5
+        versionName "1.0.3-fx2"
         testInstrumentationRunner 'androidx.test.runner.AndroidJUnitRunner'
     }
     buildTypes {
