@@ -1,4 +1,4 @@
-package com.github.tlaabs.timetableview;
+package com.github.omarb1989.timetableview;
 
 import android.content.Context;
 import android.content.res.Resources;

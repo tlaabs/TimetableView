@@ -1,4 +1,4 @@
-package com.github.tlaabs.timetableviewdemo;
+package com.github.omarb1989.timetableviewdemo;
 
 import android.content.Context;
 import android.content.Intent;
@@ -12,8 +12,8 @@ import android.widget.Toast;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.github.tlaabs.timetableview.Schedule;
-import com.github.tlaabs.timetableview.TimetableView;
+import com.github.omarb1989.timetableview.Schedule;
+import com.github.omarb1989.timetableview.TimetableView;
 
 import java.util.ArrayList;
 

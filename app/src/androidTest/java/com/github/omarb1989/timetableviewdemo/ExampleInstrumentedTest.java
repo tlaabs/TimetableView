@@ -1,4 +1,4 @@
-package com.github.tlaabs.timetableviewdemo;
+package com.github.omarb1989.timetableviewdemo;
 
 import android.content.Context;
 import androidx.test.platform.app.InstrumentationRegistry;

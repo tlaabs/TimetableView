@@ -1,6 +1,4 @@
-package com.github.tlaabs.timetableview;
-
-import android.util.Log;
+package com.github.omarb1989.timetableview;
 
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;

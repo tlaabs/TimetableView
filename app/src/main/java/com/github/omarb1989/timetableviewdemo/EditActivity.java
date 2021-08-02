@@ -1,4 +1,4 @@
-package com.github.tlaabs.timetableviewdemo;
+package com.github.omarb1989.timetableviewdemo;
 
 import android.app.TimePickerDialog;
 import android.content.Context;
@@ -13,8 +13,8 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.TimePicker;
 
-import com.github.tlaabs.timetableview.Schedule;
-import com.github.tlaabs.timetableview.Time;
+import com.github.omarb1989.timetableview.Schedule;
+import com.github.omarb1989.timetableview.Time;
 
 import java.util.ArrayList;
 

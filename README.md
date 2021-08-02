@@ -23,7 +23,7 @@ allprojects {
 Add the dependency
 ```gradle
 dependencies {
-	implementation 'com.github.tlaabs:TimetableView:1.0.3-fx1'
+	implementation 'omarb1989:TimetableView:1.0.3-fx1'
 }
 ```
 
@@ -36,7 +36,7 @@ xmlns:app="http://schemas.android.com/apk/res-auto"
 
 ### TimetableView in layout
 ```xml
-<com.github.tlaabs.timetableview.TimetableView
+<omarb1989.timetableview.TimetableView
         android:id="@+id/timetable"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -73,7 +73,7 @@ First, write a string-array as below on values/strings.xml.
 ```
 Then, apply that to timetable attribute.
 ```xml
-<com.github.tlaabs.timetableview.TimetableView
+<omarb1989.timetableview.TimetableView
     android:id="@+id/timetable"
     android:layout_width="match_parent"
     android:layout_height="0dp"
@@ -123,7 +123,7 @@ timetable.removeAll(); // remove all items
 ### Highlight header
 **1.Color type(Default)**
 ```xml
-<com.github.tlaabs.timetableview.TimetableView
+<omarb1989.timetableview.TimetableView
     android:id="@+id/timetable"
     android:layout_width="match_parent"
     android:layout_height="0dp"
@@ -132,7 +132,7 @@ timetable.removeAll(); // remove all items
 ```
 **2.Image type**
 ```xml
-<com.github.tlaabs.timetableview.TimetableView
+<omarb1989.timetableview.TimetableView
     android:id="@+id/timetable"
     android:layout_width="match_parent"
     android:layout_height="0dp"
