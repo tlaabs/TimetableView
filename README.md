@@ -1,7 +1,7 @@
 # TimetableView
 [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
 [![API](https://img.shields.io/badge/API-19%2B-brightgreen.svg?style=flat)](https://android-arsenal.com/api?level=19)
-[![](https://jitpack.io/v/tlaabs/TimetableView.svg)](https://jitpack.io/#tlaabs/TimetableView)
+[![](https://jitpack.io/v/omarb1989/TimetableView.svg)](https://jitpack.io/#omarb1989/TimetableView)
 
 Android Library that creates simple time table.
 
@@ -23,7 +23,7 @@ allprojects {
 Add the dependency
 ```gradle
 dependencies {
-	implementation 'omarb1989:TimetableView:1.0.3-fx1'
+	implementation 'omarb1989:TimetableView:1.0.3-fx3'
 }
 ```
 
@@ -93,7 +93,18 @@ timetable.setOnStickerSelectEventListener(new TimetableView.OnStickerSelectedLis
     }
 });
 ```
+### OnStickerSelectedLongClickListener
+OnStickerSelectedLongClickListener is invoked when Long clicked by user.
 
+idx is used to edit or delete. 
+```java
+timetable.setOnStickerSelectEventListener(new TimetableView.OnStickerSelectedLongClickListener() {
+            @Override
+            public void OnStickerSelectedLongClick(int idx, ArrayList<Schedule> schedules) {
+                
+            }
+        });
+```
 ### Add schdule
 ```java
 ArrayList<Schedule> schedules = new ArrayList<Schedule>();
@@ -155,7 +166,7 @@ timetable.load(json); // restore
 
 # License
 ```xml
-Copyright 2019 tlaabs
+Copyright 2019 tlaabs, forked and updated by omarb1989
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
