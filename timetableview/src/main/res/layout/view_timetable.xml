@@ -15,8 +15,7 @@
         <RelativeLayout
             android:id="@+id/sticker_box"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="#DF2541">
+            android:layout_height="wrap_content">
 
             <include layout="@layout/inner_table" />
 

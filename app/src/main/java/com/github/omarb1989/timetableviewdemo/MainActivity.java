@@ -11,6 +11,7 @@ import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.res.ResourcesCompat;
 
 import com.github.omarb1989.timetableview.Schedule;
 import com.github.omarb1989.timetableview.TimetableView;
@@ -41,6 +42,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 //Toast.makeText(context, "LongClick idx = " + idx, Toast.LENGTH_SHORT).show();
             }
         });
+       // timetable.setBackgroundColor(ResourcesCompat.getColor(getResources(),R.color.default_sticker_font_color));
 
     }
 

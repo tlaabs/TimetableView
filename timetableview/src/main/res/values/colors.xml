@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorHeader">#fcfcfc</color>
-    <color name="colorHeaderText">#7d7d7d</color>
-    <color name="colorTableItem">#efefef</color>
+    <color name="colorSideHeader">#ffffff</color>
+    <color name="colorHeaderText">#D9000000</color>
+    <color name="colorTableItem">#F5F5F5</color>
 
     <string-array name="default_sticker_color">
         <item>#f08676</item>

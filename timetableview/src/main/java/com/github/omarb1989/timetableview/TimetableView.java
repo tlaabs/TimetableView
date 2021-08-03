@@ -296,7 +296,7 @@ public class TimetableView extends LinearLayout {
                     tv.setText(getHeaderTime(i));
                     tv.setTextColor(getResources().getColor(R.color.colorHeaderText));
                     tv.setTextSize(TypedValue.COMPLEX_UNIT_DIP, DEFAULT_SIDE_HEADER_FONT_SIZE_DP);
-                    tv.setBackgroundColor(getResources().getColor(R.color.colorHeader));
+                    tv.setBackgroundColor(getResources().getColor(R.color.colorSideHeader));
                     tv.setGravity(Gravity.TOP | Gravity.CENTER_HORIZONTAL);
                     tv.setLayoutParams(createTableRowParam(sideCellWidth, cellHeight));
                 } else {
