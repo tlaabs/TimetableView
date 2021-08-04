@@ -50,4 +50,5 @@
         app:header_highlight_type="image"
         app:header_title="@array/header_title" />
 
+
 </LinearLayout>
