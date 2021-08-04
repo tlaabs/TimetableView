@@ -36,7 +36,7 @@ public class TimetableView extends LinearLayout {
     private static final int DEFAULT_COLUMN_COUNT = 6;
     private static final int DEFAULT_CELL_HEIGHT_DP = 50;
     private static final int DEFAULT_SIDE_CELL_WIDTH_DP = 30;
-    private static final int DEFAULT_START_TIME = 9;
+    private static final int DEFAULT_START_TIME = 8;
 
     private static final int DEFAULT_SIDE_HEADER_FONT_SIZE_DP = 13;
     private static final int DEFAULT_HEADER_FONT_SIZE_DP = 15;
@@ -57,6 +57,7 @@ public class TimetableView extends LinearLayout {
     private int sideColorText;
     private int sideColor;
     private int sideAndHeaderTextColor;
+    private int borderWidth;
 
     private RelativeLayout stickerBox;
     TableLayout tableHeader;
@@ -112,6 +113,7 @@ public class TimetableView extends LinearLayout {
         sideColorText = a.getColor(R.styleable.TimetableView_side_color_text, getResources().getColor(R.color.default_color_side_text));
         sideColor = a.getColor(R.styleable.TimetableView_color_side, getResources().getColor(R.color.colorSideHeader));
         sideAndHeaderTextColor = a.getColor(R.styleable.TimetableView_color_side_header_text, getResources().getColor(R.color.default_color_side_header_text));
+        borderWidth = a.getInt(R.styleable.TimetableView_border_width, BorderWidth.NORMAL.ordinal());
         a.recycle();
     }
 
@@ -326,7 +328,7 @@ public class TimetableView extends LinearLayout {
                         ((ShapeDrawable) background).getPaint().setColor(colorSurface);
                     } else if (background instanceof GradientDrawable) {
                         ((GradientDrawable) background).setColor(colorSurface);
-                        ((GradientDrawable) background).setStroke(2,colorBorders);
+                        ((GradientDrawable) background).setStroke(borderWidth,colorBorders);
                     } else if (background instanceof ColorDrawable) {
                         ((ColorDrawable) background).setColor(colorSurface);
                     }
@@ -428,6 +430,8 @@ public class TimetableView extends LinearLayout {
         this.sideColorText = builder.sideColorText;
         this.sideColor = builder.sideColor;
         this.sideAndHeaderTextColor = builder.sideAndHeaderTextColor;
+        this.borderWidth = builder.borderWidth;
+
         init();
     }
 
@@ -455,6 +459,7 @@ public class TimetableView extends LinearLayout {
         private int sideColorText;
         private int sideColor;
         private int sideAndHeaderTextColor;
+        private int borderWidth;
 
         public Builder(Context context) {
             this.context = context;
@@ -471,6 +476,7 @@ public class TimetableView extends LinearLayout {
             sideColorText = context.getResources().getColor(R.color.default_color_side_text);
             sideColor =  context.getResources().getColor(R.color.colorSideHeader);
             sideAndHeaderTextColor = context.getResources().getColor(R.color.default_color_side_header_text);
+            borderWidth = BorderWidth.NORMAL.ordinal();
         }
 
         public Builder setRowCount(int n) {
@@ -533,6 +539,10 @@ public class TimetableView extends LinearLayout {
         }
         public Builder setSideAndHeaderTextColor(int c) {
             this.sideAndHeaderTextColor = c;
+            return this;
+        }
+        public Builder setBorderWidth(int b) {
+            this.borderWidth = b;
             return this;
         }
 

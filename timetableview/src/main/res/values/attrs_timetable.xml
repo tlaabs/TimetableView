@@ -14,6 +14,13 @@
         <attr name="side_color_text" format="color" />
         <attr name="color_side" format="color" />
         <attr name="color_side_header_text" format="color" />
+        <attr name="border_width" format="enum">
+            <enum name="noWidth" value="0" />
+            <enum name="light" value="1" />
+            <enum name="normal" value="2" />
+            <enum name="thick" value="3" />
+            <enum name="extra_thick" value="4" />
+        </attr>
         <attr name="header_highlight_type" format="enum">
             <enum name="color" value="0" />
             <enum name="image" value="1" />

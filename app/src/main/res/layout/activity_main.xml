@@ -53,6 +53,7 @@
         app:color_borders="#F3F3F3"
         app:side_color_text="#000000"
         app:color_side_header_text="#FFE082"
+        app:border_width="light"
         app:color_side="#F48FB1"/>
 
 
