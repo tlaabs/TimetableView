@@ -23,7 +23,7 @@ allprojects {
 Add the dependency
 ```gradle
 dependencies {
-	implementation 'omarb1989:TimetableView:1.0.3-fx3'
+	implementation 'omarb1989:TimetableView:1.0.4'
 }
 ```
 
