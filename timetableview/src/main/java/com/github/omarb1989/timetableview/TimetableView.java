@@ -56,6 +56,7 @@ public class TimetableView extends LinearLayout {
     private int colorBorders;
     private int sideColorText;
     private int sideColor;
+    private int sideAndHeaderTextColor;
 
     private RelativeLayout stickerBox;
     TableLayout tableHeader;
@@ -110,6 +111,7 @@ public class TimetableView extends LinearLayout {
         colorBorders = a.getColor(R.styleable.TimetableView_color_borders, getResources().getColor(R.color.colorBorders));
         sideColorText = a.getColor(R.styleable.TimetableView_side_color_text, getResources().getColor(R.color.default_color_side_text));
         sideColor = a.getColor(R.styleable.TimetableView_color_side, getResources().getColor(R.color.colorSideHeader));
+        sideAndHeaderTextColor = a.getColor(R.styleable.TimetableView_color_side_header_text, getResources().getColor(R.color.default_color_side_header_text));
         a.recycle();
     }
 
@@ -348,7 +350,7 @@ public class TimetableView extends LinearLayout {
             } else {
                 tv.setLayoutParams(createTableRowParam(cellHeight));
             }
-            tv.setTextColor(getResources().getColor(R.color.default_color_side_header_text));
+            tv.setTextColor(sideAndHeaderTextColor);
             tv.setTextSize(TypedValue.COMPLEX_UNIT_DIP, DEFAULT_HEADER_FONT_SIZE_DP);
             tv.setText(headerTitle[i]);
             tv.setGravity(Gravity.CENTER);
@@ -425,6 +427,7 @@ public class TimetableView extends LinearLayout {
         this.colorBorders = builder.colorBorders;
         this.sideColorText = builder.sideColorText;
         this.sideColor = builder.sideColor;
+        this.sideAndHeaderTextColor = builder.sideAndHeaderTextColor;
         init();
     }
 
@@ -451,6 +454,7 @@ public class TimetableView extends LinearLayout {
         private int colorBorders;
         private int sideColorText;
         private int sideColor;
+        private int sideAndHeaderTextColor;
 
         public Builder(Context context) {
             this.context = context;
@@ -466,6 +470,7 @@ public class TimetableView extends LinearLayout {
             colorBorders = context.getResources().getColor(R.color.colorBorders);
             sideColorText = context.getResources().getColor(R.color.default_color_side_text);
             sideColor =  context.getResources().getColor(R.color.colorSideHeader);
+            sideAndHeaderTextColor = context.getResources().getColor(R.color.default_color_side_header_text);
         }
 
         public Builder setRowCount(int n) {
@@ -524,6 +529,10 @@ public class TimetableView extends LinearLayout {
         }
         public Builder setSideColorText(int c) {
             this.sideColor = c;
+            return this;
+        }
+        public Builder setSideAndHeaderTextColor(int c) {
+            this.sideAndHeaderTextColor = c;
             return this;
         }
 

@@ -13,6 +13,7 @@
         <attr name="color_borders" format="color" />
         <attr name="side_color_text" format="color" />
         <attr name="color_side" format="color" />
+        <attr name="color_side_header_text" format="color" />
         <attr name="header_highlight_type" format="enum">
             <enum name="color" value="0" />
             <enum name="image" value="1" />
