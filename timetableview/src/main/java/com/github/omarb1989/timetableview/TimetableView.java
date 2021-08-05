@@ -328,7 +328,7 @@ public class TimetableView extends LinearLayout {
                         ((ShapeDrawable) background).getPaint().setColor(colorSurface);
                     } else if (background instanceof GradientDrawable) {
                         ((GradientDrawable) background).setColor(colorSurface);
-                        ((GradientDrawable) background).setStroke(borderWidth,colorBorders);
+                        ((GradientDrawable) background).setStroke(borderWidth, colorBorders);
                     } else if (background instanceof ColorDrawable) {
                         ((ColorDrawable) background).setColor(colorSurface);
                     }
@@ -409,7 +409,11 @@ public class TimetableView extends LinearLayout {
     private String getHeaderTime(int i) {
         int p = (startTime + i) % 24;
         int res = p <= 12 ? p : p - 12;
-        return res + "";
+        if ((res >= 8) && (res < 12)) {
+            return res + "\nAM";
+        } else if (((res >= 1) && (res <= 7))||(res == 12)) {
+            return res + "\nPM";
+        } else return res + " outOfBoundTime";
     }
 
     static private int dp2Px(int dp) {
@@ -474,7 +478,7 @@ public class TimetableView extends LinearLayout {
             colorSurface = context.getResources().getColor(R.color.default_color_surface);
             colorBorders = context.getResources().getColor(R.color.colorBorders);
             sideColorText = context.getResources().getColor(R.color.default_color_side_text);
-            sideColor =  context.getResources().getColor(R.color.colorSideHeader);
+            sideColor = context.getResources().getColor(R.color.colorSideHeader);
             sideAndHeaderTextColor = context.getResources().getColor(R.color.default_color_side_header_text);
             borderWidth = BorderWidth.NORMAL.ordinal();
         }
@@ -533,14 +537,17 @@ public class TimetableView extends LinearLayout {
             this.sideColorText = c;
             return this;
         }
+
         public Builder setSideColorText(int c) {
             this.sideColor = c;
             return this;
         }
+
         public Builder setSideAndHeaderTextColor(int c) {
             this.sideAndHeaderTextColor = c;
             return this;
         }
+
         public Builder setBorderWidth(int b) {
             this.borderWidth = b;
             return this;
