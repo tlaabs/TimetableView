@@ -6,8 +6,8 @@
 Android Library that creates simple time table.
 
 
-![img0](https://postfiles.pstatic.net/MjAxOTAxMjdfMTUz/MDAxNTQ4NTcyNTU5NTk4.M9hWyDvljjkoBDW-naLrTRqRAXUM8WRUyZXptTLKbs8g.b0FN12d8Cmxp5OWZqlQcusL_mJYNKgx6a_XLe_1ALOog.JPEG.tlaabs/Screenshot_Air.jpg?type=w773)
-![img1](https://user-images.githubusercontent.com/8165219/62833150-b88d3180-bc74-11e9-9b20-02a0ad03e778.jpg) 
+![img0](https://www.mediafire.com/file/fwngadc5cpuzga2/light.png/)
+![img1](https://www.mediafire.com/file/obn37jacczimzl1/dark.png/) 
 
 
 ## How to import
