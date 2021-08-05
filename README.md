@@ -23,7 +23,7 @@ allprojects {
 Add the dependency
 ```gradle
 dependencies {
-	implementation 'omarb1989:TimetableView:1.0.4-fx1'
+	implementation 'omarb1989:TimetableView:1.0.4-fx2'
 }
 ```
 
@@ -62,6 +62,7 @@ app:color_borders="#F3F3F3" // set color for the table borders
 app:side_color_text="#000000" //set color text of the first column of hours
 app:color_side="#F48FB1" // set color of the first column of hours
 app:color_side_header_text="#FFE082" // set color text of the header and the first column of hours
+app:border_width="light" // set table border width: noWidth, light, normal, thick, extra thick
 ```
 
 ### Change header title
