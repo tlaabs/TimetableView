@@ -23,7 +23,7 @@ allprojects {
 Add the dependency
 ```gradle
 dependencies {
-	implementation 'omarb1989:TimetableView:1.0.4-fx3'
+	implementation 'omarb1989:TimetableView:1.0.4-fx4'
 }
 ```
 
@@ -120,9 +120,11 @@ schedule.setClassPlace("IT-601"); // sets place
 schedule.setProfessorName("Won Kim"); // sets professor
 schedule.setStartTime(new Time(10,0)); // sets the beginning of class time (hour,minute)
 schedule.setEndTime(new Time(13,30)); // sets the end of class time (hour,minute)
+int uniqueId = schedule.get_id();// you can use it later on wherever you get schedule object to identify it
 schedules.add(schedule);
 //.. add one or more schedules
 timetable.add(schedules);
+int UniqueId = 
 ```
 
 ### Edit schedule
