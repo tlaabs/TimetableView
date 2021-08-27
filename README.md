@@ -23,7 +23,7 @@ allprojects {
 Add the dependency
 ```gradle
 dependencies {
-	implementation 'omarb1989:TimetableView:1.0.4-fx4'
+	implementation 'omarb1989:TimetableView:1.0.4-fx5'
 }
 ```
 
@@ -124,7 +124,6 @@ int uniqueId = schedule.get_id();// you can use it later on wherever you get sch
 schedules.add(schedule);
 //.. add one or more schedules
 timetable.add(schedules);
-int UniqueId = 
 ```
 
 ### Edit schedule
