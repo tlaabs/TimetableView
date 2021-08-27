@@ -1,7 +1,6 @@
 package com.github.omarb1989.timetableview;
 
 import java.io.Serializable;
-import java.util.UUID;
 
 public class Schedule implements Serializable {
     static final int MON = 0;
@@ -14,9 +13,9 @@ public class Schedule implements Serializable {
 
 
     int _id;
-    String classTitle="";
-    String classPlace="";
-    String professorName="";
+    String classTitle = "";
+    String classPlace = "";
+    String professorName = "";
     private int day = 0;
     private Time startTime;
     private Time endTime;
@@ -24,10 +23,15 @@ public class Schedule implements Serializable {
     public Schedule() {
         this.startTime = new Time();
         this.endTime = new Time();
-        _id = (int)System.currentTimeMillis();
+        _id = (int) System.currentTimeMillis();
     }
+
     public int get_id() {
         return _id;
+    }
+
+    public void set_id(int _id) {
+        this._id = _id;
     }
 
     public String getProfessorName() {
