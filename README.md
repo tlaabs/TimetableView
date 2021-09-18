@@ -1,13 +1,13 @@
 # TimetableView
 [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
 [![API](https://img.shields.io/badge/API-19%2B-brightgreen.svg?style=flat)](https://android-arsenal.com/api?level=19)
-[![](https://jitpack.io/v/tlaabs/TimetableView.svg)](https://jitpack.io/#tlaabs/TimetableView)
+[![](https://jitpack.io/v/omarb1989/TimetableView.svg)](https://jitpack.io/#omarb1989/TimetableView)
 
 Android Library that creates simple time table.
 
+![dark](https://user-images.githubusercontent.com/9026030/128323499-f8562b86-8f18-4cc3-a6b5-3165b03ad88b.jpg)
+![light](https://user-images.githubusercontent.com/9026030/128323528-678ceab1-4dd8-40e1-a09b-e66b98ed0343.jpg)
 
-![img0](https://postfiles.pstatic.net/MjAxOTAxMjdfMTUz/MDAxNTQ4NTcyNTU5NTk4.M9hWyDvljjkoBDW-naLrTRqRAXUM8WRUyZXptTLKbs8g.b0FN12d8Cmxp5OWZqlQcusL_mJYNKgx6a_XLe_1ALOog.JPEG.tlaabs/Screenshot_Air.jpg?type=w773)
-![img1](https://user-images.githubusercontent.com/8165219/62833150-b88d3180-bc74-11e9-9b20-02a0ad03e778.jpg) 
 
 
 ## How to import
@@ -23,7 +23,7 @@ allprojects {
 Add the dependency
 ```gradle
 dependencies {
-	implementation 'com.github.tlaabs:TimetableView:1.0.3-fx1'
+	implementation 'omarb1989:TimetableView:1.0.4-fx5'
 }
 ```
 
@@ -36,7 +36,7 @@ xmlns:app="http://schemas.android.com/apk/res-auto"
 
 ### TimetableView in layout
 ```xml
-<com.github.tlaabs.timetableview.TimetableView
+<omarb1989.timetableview.TimetableView
         android:id="@+id/timetable"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -57,6 +57,12 @@ app:header_highlight_color="@color/highlight" // sets header highlight color (de
 app:header_highlight_image="@drawable/ic_kitty" // set header highlight image src
 app:header_highlight_image_size="36dp" // set header highlight image width,height(square)
 app:header_highlight_type="image" // set header highlight type - color/image (default : color)
+app:color_surface="#ffffff" // set default color of table boxes
+app:color_borders="#F3F3F3" // set color for the table borders
+app:side_color_text="#000000" //set color text of the first column of hours
+app:color_side="#F48FB1" // set color of the first column of hours
+app:color_side_header_text="#FFE082" // set color text of the header and the first column of hours
+app:border_width="light" // set table border width: noWidth, light, normal, thick, extra thick
 ```
 
 ### Change header title
@@ -73,7 +79,7 @@ First, write a string-array as below on values/strings.xml.
 ```
 Then, apply that to timetable attribute.
 ```xml
-<com.github.tlaabs.timetableview.TimetableView
+<omarb1989.timetableview.TimetableView
     android:id="@+id/timetable"
     android:layout_width="match_parent"
     android:layout_height="0dp"
@@ -93,7 +99,18 @@ timetable.setOnStickerSelectEventListener(new TimetableView.OnStickerSelectedLis
     }
 });
 ```
+### OnStickerSelectedLongClickListener
+OnStickerSelectedLongClickListener is invoked when Long clicked by user.
 
+idx is used to edit or delete. 
+```java
+timetable.setOnStickerSelectEventListener(new TimetableView.OnStickerSelectedLongClickListener() {
+            @Override
+            public void OnStickerSelectedLongClick(int idx, ArrayList<Schedule> schedules) {
+                
+            }
+        });
+```
 ### Add schdule
 ```java
 ArrayList<Schedule> schedules = new ArrayList<Schedule>();
@@ -103,6 +120,7 @@ schedule.setClassPlace("IT-601"); // sets place
 schedule.setProfessorName("Won Kim"); // sets professor
 schedule.setStartTime(new Time(10,0)); // sets the beginning of class time (hour,minute)
 schedule.setEndTime(new Time(13,30)); // sets the end of class time (hour,minute)
+int uniqueId = schedule.get_id();// you can use it later on wherever you get schedule object to identify it
 schedules.add(schedule);
 //.. add one or more schedules
 timetable.add(schedules);
@@ -123,7 +141,7 @@ timetable.removeAll(); // remove all items
 ### Highlight header
 **1.Color type(Default)**
 ```xml
-<com.github.tlaabs.timetableview.TimetableView
+<omarb1989.timetableview.TimetableView
     android:id="@+id/timetable"
     android:layout_width="match_parent"
     android:layout_height="0dp"
@@ -132,7 +150,7 @@ timetable.removeAll(); // remove all items
 ```
 **2.Image type**
 ```xml
-<com.github.tlaabs.timetableview.TimetableView
+<omarb1989.timetableview.TimetableView
     android:id="@+id/timetable"
     android:layout_width="match_parent"
     android:layout_height="0dp"
@@ -155,7 +173,7 @@ timetable.load(json); // restore
 
 # License
 ```xml
-Copyright 2019 tlaabs
+Copyright 2019 tlaabs, forked and updated by omarb1989
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.

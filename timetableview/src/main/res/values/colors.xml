@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorHeader">#fcfcfc</color>
-    <color name="colorHeaderText">#7d7d7d</color>
-    <color name="colorTableItem">#efefef</color>
+    <color name="colorSideHeader">#ffffff</color>
+    <color name="default_color_side_header_text">#D9000000</color>
+    <color name="default_color_side_text">@color/default_color_side_header_text</color>
+    <color name="colorBorders">#F5F5F5</color>
 
     <string-array name="default_sticker_color">
         <item>#f08676</item>
@@ -16,9 +17,6 @@
         <item>#d397ed</item>
     </string-array>
 
-    <color name="default_side_header_font_color">#7d7d7d</color>
-    <color name="default_header_font_color">#7d7d7d</color>
-    <color name="default_header_highlight_font_color">#ffffff</color>
     <color name="default_header_highlight_color">#74a4f3</color>
-    <color name="default_sticker_font_color">#ffffff</color>
+    <color name="default_color_surface">#ffffff</color>
 </resources>

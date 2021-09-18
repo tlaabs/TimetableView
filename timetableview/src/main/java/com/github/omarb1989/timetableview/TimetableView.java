@@ -1,14 +1,15 @@
-package com.github.tlaabs.timetableview;
+package com.github.omarb1989.timetableview;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.res.Resources;
 import android.content.res.TypedArray;
 import android.graphics.Color;
 import android.graphics.Point;
 import android.graphics.Typeface;
+import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
-import android.support.v7.content.res.AppCompatResources;
+import android.graphics.drawable.GradientDrawable;
+import android.graphics.drawable.ShapeDrawable;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.util.TypedValue;
@@ -23,6 +24,9 @@ import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
 
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.res.ResourcesCompat;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -32,7 +36,7 @@ public class TimetableView extends LinearLayout {
     private static final int DEFAULT_COLUMN_COUNT = 6;
     private static final int DEFAULT_CELL_HEIGHT_DP = 50;
     private static final int DEFAULT_SIDE_CELL_WIDTH_DP = 30;
-    private static final int DEFAULT_START_TIME = 9;
+    private static final int DEFAULT_START_TIME = 8;
 
     private static final int DEFAULT_SIDE_HEADER_FONT_SIZE_DP = 13;
     private static final int DEFAULT_HEADER_FONT_SIZE_DP = 15;
@@ -48,6 +52,12 @@ public class TimetableView extends LinearLayout {
     private String[] stickerColors;
     private int startTime;
     private int headerHighlightColor;
+    private int colorSurface;
+    private int colorBorders;
+    private int sideColorText;
+    private int sideColor;
+    private int sideAndHeaderTextColor;
+    private int borderWidth;
 
     private RelativeLayout stickerBox;
     TableLayout tableHeader;
@@ -59,6 +69,7 @@ public class TimetableView extends LinearLayout {
     private int stickerCount = -1;
 
     private OnStickerSelectedListener stickerSelectedListener = null;
+    private OnStickerSelectedLongClickListener stickerSelectedLongClickListener = null;
 
     private HighlightMode highlightMode = HighlightMode.COLOR;
     private int headerHighlightImageSize;
@@ -92,11 +103,17 @@ public class TimetableView extends LinearLayout {
         stickerColors = a.getResources().getStringArray(colorsId);
         startTime = a.getInt(R.styleable.TimetableView_start_time, DEFAULT_START_TIME);
         headerHighlightColor = a.getColor(R.styleable.TimetableView_header_highlight_color, getResources().getColor(R.color.default_header_highlight_color));
-        int highlightTypeValue = a.getInteger(R.styleable.TimetableView_header_highlight_type,0);
-        if(highlightTypeValue == 0) highlightMode = HighlightMode.COLOR;
-        else if(highlightTypeValue == 1) highlightMode = HighlightMode.IMAGE;
+        int highlightTypeValue = a.getInteger(R.styleable.TimetableView_header_highlight_type, 0);
+        if (highlightTypeValue == 0) highlightMode = HighlightMode.COLOR;
+        else if (highlightTypeValue == 1) highlightMode = HighlightMode.IMAGE;
         headerHighlightImageSize = a.getDimensionPixelSize(R.styleable.TimetableView_header_highlight_image_size, dp2Px(24));
         headerHighlightImage = a.getDrawable(R.styleable.TimetableView_header_highlight_image);
+        colorSurface = a.getColor(R.styleable.TimetableView_color_surface, getResources().getColor(R.color.default_color_surface));
+        colorBorders = a.getColor(R.styleable.TimetableView_color_borders, getResources().getColor(R.color.colorBorders));
+        sideColorText = a.getColor(R.styleable.TimetableView_side_color_text, getResources().getColor(R.color.default_color_side_text));
+        sideColor = a.getColor(R.styleable.TimetableView_color_side, getResources().getColor(R.color.colorSideHeader));
+        sideAndHeaderTextColor = a.getColor(R.styleable.TimetableView_color_side_header_text, getResources().getColor(R.color.default_color_side_header_text));
+        borderWidth = a.getInt(R.styleable.TimetableView_border_width, BorderWidth.NORMAL.ordinal());
         a.recycle();
     }
 
@@ -109,12 +126,18 @@ public class TimetableView extends LinearLayout {
         tableHeader = view.findViewById(R.id.table_header);
         tableBox = view.findViewById(R.id.table_box);
 
+
         createTable();
     }
 
     public void setOnStickerSelectEventListener(OnStickerSelectedListener listener) {
         stickerSelectedListener = listener;
     }
+
+    public void setOnStickerSelectEventListener(OnStickerSelectedLongClickListener listener) {
+        stickerSelectedLongClickListener = listener;
+    }
+
 
     /**
      * date : 2019-02-08
@@ -166,10 +189,19 @@ public class TimetableView extends LinearLayout {
             tv.setOnClickListener(new OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    if(stickerSelectedListener != null)
+                    if (stickerSelectedListener != null)
                         stickerSelectedListener.OnStickerSelected(count, schedules);
                 }
             });
+            tv.setOnLongClickListener(new OnLongClickListener() {
+                @Override
+                public boolean onLongClick(View v) {
+                    if (stickerSelectedLongClickListener != null)
+                        stickerSelectedLongClickListener.OnStickerSelectedLongClick(count, schedules);
+                    return true;
+                }
+            });
+
 
             sticker.addTextView(tv);
             sticker.addSchedule(schedule);
@@ -221,30 +253,29 @@ public class TimetableView extends LinearLayout {
     }
 
     public void setHeaderHighlight(int idx) {
-        if(idx < 0)return;
+        if (idx < 0) return;
         TableRow row = (TableRow) tableHeader.getChildAt(0);
         View element = row.getChildAt(idx);
-        if(highlightMode == HighlightMode.COLOR) {
-            TextView tx = (TextView)element;
+        if (highlightMode == HighlightMode.COLOR) {
+            TextView tx = (TextView) element;
             tx.setTextColor(Color.parseColor("#FFFFFF"));
             tx.setBackgroundColor(headerHighlightColor);
             tx.setTypeface(null, Typeface.BOLD);
             tx.setTextSize(TypedValue.COMPLEX_UNIT_DIP, DEFAULT_HEADER_HIGHLIGHT_FONT_SIZE_DP);
-        }
-        else if(highlightMode == HighlightMode.IMAGE){
+        } else if (highlightMode == HighlightMode.IMAGE) {
             RelativeLayout outer = new RelativeLayout(context);
             outer.setLayoutParams(createTableRowParam(cellHeight));
             ImageView iv = new ImageView(context);
-            RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(headerHighlightImageSize,headerHighlightImageSize);
-            params.addRule(RelativeLayout.CENTER_IN_PARENT,RelativeLayout.TRUE);
+            RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(headerHighlightImageSize, headerHighlightImageSize);
+            params.addRule(RelativeLayout.CENTER_IN_PARENT, RelativeLayout.TRUE);
             iv.setLayoutParams(params);
             iv.setScaleType(ImageView.ScaleType.CENTER_CROP);
 
             row.removeViewAt(idx);
             outer.addView(iv);
-            row.addView(outer,idx);
+            row.addView(outer, idx);
 
-            if(headerHighlightImage != null) {
+            if (headerHighlightImage != null) {
                 iv.setImageDrawable(headerHighlightImage);
             }
 
@@ -279,16 +310,29 @@ public class TimetableView extends LinearLayout {
             for (int k = 0; k < columnCount; k++) {
                 TextView tv = new TextView(context);
                 tv.setLayoutParams(createTableRowParam(cellHeight));
+                tv.setTextColor(sideColorText);
                 if (k == 0) {
                     tv.setText(getHeaderTime(i));
-                    tv.setTextColor(getResources().getColor(R.color.colorHeaderText));
                     tv.setTextSize(TypedValue.COMPLEX_UNIT_DIP, DEFAULT_SIDE_HEADER_FONT_SIZE_DP);
-                    tv.setBackgroundColor(getResources().getColor(R.color.colorHeader));
+                    tv.setBackgroundColor(sideColor);
                     tv.setGravity(Gravity.TOP | Gravity.CENTER_HORIZONTAL);
                     tv.setLayoutParams(createTableRowParam(sideCellWidth, cellHeight));
                 } else {
                     tv.setText("");
-                    tv.setBackground(getResources().getDrawable(R.drawable.item_border));
+                    /* ------------set shape color and Stroke of item_border.xml ---------- */
+                    Resources res = getResources();
+                    Log.i("createTable", "color surface: " + String.valueOf(colorSurface));
+                    tv.setBackground(ResourcesCompat.getDrawable(res, R.drawable.item_border, null));
+                    Drawable background = tv.getBackground();
+                    if (background instanceof ShapeDrawable) {
+                        ((ShapeDrawable) background).getPaint().setColor(colorSurface);
+                    } else if (background instanceof GradientDrawable) {
+                        ((GradientDrawable) background).setColor(colorSurface);
+                        ((GradientDrawable) background).setStroke(borderWidth, colorBorders);
+                    } else if (background instanceof ColorDrawable) {
+                        ((ColorDrawable) background).setColor(colorSurface);
+                    }
+                    /* --------------------- Finish set ----------------------- */
                     tv.setGravity(Gravity.RIGHT);
                 }
                 tableRow.addView(tv);
@@ -308,7 +352,7 @@ public class TimetableView extends LinearLayout {
             } else {
                 tv.setLayoutParams(createTableRowParam(cellHeight));
             }
-            tv.setTextColor(getResources().getColor(R.color.colorHeaderText));
+            tv.setTextColor(sideAndHeaderTextColor);
             tv.setTextSize(TypedValue.COMPLEX_UNIT_DIP, DEFAULT_HEADER_FONT_SIZE_DP);
             tv.setText(headerTitle[i]);
             tv.setGravity(Gravity.CENTER);
@@ -329,11 +373,11 @@ public class TimetableView extends LinearLayout {
         return param;
     }
 
-    private int calCellWidth(){
-        Display display = ((Activity) context).getWindowManager().getDefaultDisplay();
+    private int calCellWidth() {
+        Display display = ((AppCompatActivity) context).getWindowManager().getDefaultDisplay();
         Point size = new Point();
         display.getSize(size);
-        int cell_w = (size.x-getPaddingLeft() - getPaddingRight()- sideCellWidth) / (columnCount - 1);
+        int cell_w = (size.x - getPaddingLeft() - getPaddingRight() - sideCellWidth) / (columnCount - 1);
         return cell_w;
     }
 
@@ -365,7 +409,11 @@ public class TimetableView extends LinearLayout {
     private String getHeaderTime(int i) {
         int p = (startTime + i) % 24;
         int res = p <= 12 ? p : p - 12;
-        return res + "";
+        if ((res >= 8) && (res < 12)) {
+            return res + "\nAM";
+        } else if (((res >= 1) && (res <= 7))||(res == 12)) {
+            return res + "\nPM";
+        } else return res + " outOfBoundTime";
     }
 
     static private int dp2Px(int dp) {
@@ -381,6 +429,12 @@ public class TimetableView extends LinearLayout {
         this.stickerColors = builder.stickerColors;
         this.startTime = builder.startTime;
         this.headerHighlightColor = builder.headerHighlightColor;
+        this.colorSurface = builder.colorSurface;
+        this.colorBorders = builder.colorBorders;
+        this.sideColorText = builder.sideColorText;
+        this.sideColor = builder.sideColor;
+        this.sideAndHeaderTextColor = builder.sideAndHeaderTextColor;
+        this.borderWidth = builder.borderWidth;
 
         init();
     }
@@ -388,6 +442,10 @@ public class TimetableView extends LinearLayout {
 
     public interface OnStickerSelectedListener {
         void OnStickerSelected(int idx, ArrayList<Schedule> schedules);
+    }
+
+    public interface OnStickerSelectedLongClickListener {
+        void OnStickerSelectedLongClick(int idx, ArrayList<Schedule> schedules);
     }
 
     static class Builder {
@@ -400,6 +458,12 @@ public class TimetableView extends LinearLayout {
         private String[] stickerColors;
         private int startTime;
         private int headerHighlightColor;
+        private int colorSurface;
+        private int colorBorders;
+        private int sideColorText;
+        private int sideColor;
+        private int sideAndHeaderTextColor;
+        private int borderWidth;
 
         public Builder(Context context) {
             this.context = context;
@@ -411,6 +475,12 @@ public class TimetableView extends LinearLayout {
             stickerColors = context.getResources().getStringArray(R.array.default_sticker_color);
             startTime = DEFAULT_START_TIME;
             headerHighlightColor = context.getResources().getColor(R.color.default_header_highlight_color);
+            colorSurface = context.getResources().getColor(R.color.default_color_surface);
+            colorBorders = context.getResources().getColor(R.color.colorBorders);
+            sideColorText = context.getResources().getColor(R.color.default_color_side_text);
+            sideColor = context.getResources().getColor(R.color.colorSideHeader);
+            sideAndHeaderTextColor = context.getResources().getColor(R.color.default_color_side_header_text);
+            borderWidth = BorderWidth.NORMAL.ordinal();
         }
 
         public Builder setRowCount(int n) {
@@ -450,6 +520,36 @@ public class TimetableView extends LinearLayout {
 
         public Builder setHeaderHighlightColor(int c) {
             this.headerHighlightColor = c;
+            return this;
+        }
+
+        public Builder setColorSurface(int c) {
+            this.colorSurface = c;
+            return this;
+        }
+
+        public Builder setColorBorders(int c) {
+            this.colorBorders = c;
+            return this;
+        }
+
+        public Builder setColorText(int c) {
+            this.sideColorText = c;
+            return this;
+        }
+
+        public Builder setSideColorText(int c) {
+            this.sideColor = c;
+            return this;
+        }
+
+        public Builder setSideAndHeaderTextColor(int c) {
+            this.sideAndHeaderTextColor = c;
+            return this;
+        }
+
+        public Builder setBorderWidth(int b) {
+            this.borderWidth = b;
             return this;
         }
 

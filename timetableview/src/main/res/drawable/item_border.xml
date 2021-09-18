@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <shape xmlns:android="http://schemas.android.com/apk/res/android">
-    <solid android:color="#ffffff" />
+    <solid android:color="@color/default_color_surface" />
     <stroke
         android:width="2px"
-        android:color="@color/colorTableItem" />
+        android:color="@color/colorBorders" />
 </shape>

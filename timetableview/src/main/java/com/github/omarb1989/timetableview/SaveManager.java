@@ -1,6 +1,4 @@
-package com.github.tlaabs.timetableview;
-
-import android.util.Log;
+package com.github.omarb1989.timetableview;
 
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
@@ -23,6 +21,7 @@ public class SaveManager {
             ArrayList<Schedule> schedules = stickers.get(idx).getSchedules();
             for(Schedule schedule : schedules){
                 JsonObject obj3 = new JsonObject();
+                obj3.addProperty("_id",schedule._id);
                 obj3.addProperty("classTitle",schedule.classTitle);
                 obj3.addProperty("classPlace",schedule.classPlace);
                 obj3.addProperty("professorName",schedule.getProfessorName());
@@ -57,6 +56,7 @@ public class SaveManager {
             for(int k = 0 ; k < arr2.size(); k++){
                 Schedule schedule = new Schedule();
                 JsonObject obj3 = (JsonObject)arr2.get(k);
+                schedule.set_id(obj3.get("_id").getAsInt());
                 schedule.setClassTitle(obj3.get("classTitle").getAsString());
                 schedule.setClassPlace(obj3.get("classPlace").getAsString());
                 schedule.setProfessorName(obj3.get("professorName").getAsString());

@@ -41,13 +41,21 @@
 
     </LinearLayout>
 
-    <com.github.tlaabs.timetableview.TimetableView
+    <com.github.omarb1989.timetableview.TimetableView
         android:id="@+id/timetable"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:header_highlight_image="@drawable/ic_kitty"
         app:header_highlight_image_size="36dp"
         app:header_highlight_type="image"
-        app:header_title="@array/header_title" />
+        app:header_title="@array/header_title"/>
+<!--        app:color_surface="#ffffff"-->
+<!--        app:color_borders="#F3F3F3"-->
+<!--        app:side_color_text="#000000"-->
+<!--        app:color_side_header_text="#FFE082"-->
+<!--        app:border_width="light"-->
+<!--        app:color_side="#F48FB1"/>-->
+
+
 
 </LinearLayout>

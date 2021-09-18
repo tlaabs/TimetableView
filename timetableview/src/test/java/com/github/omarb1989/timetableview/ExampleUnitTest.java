@@ -1,4 +1,4 @@
-package com.github.tlaabs.timetableviewdemo;
+package com.github.omarb1989.timetableview;
 
 import org.junit.Test;
 
