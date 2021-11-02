@@ -150,7 +150,7 @@ public class TimetableView extends LinearLayout {
     }
 
     private void add(final ArrayList<Schedule> schedules, int specIdx) {
-        int count = specIdx < 0 ? ++stickerCount : specIdx;
+        final int count = specIdx < 0 ? ++stickerCount : specIdx;
         Sticker sticker = new Sticker();
         for (Schedule schedule : schedules) {
         TextView tv = new TextView(context);
@@ -163,7 +163,7 @@ public class TimetableView extends LinearLayout {
                tv.setTextSize(TypedValue.COMPLEX_UNIT_DIP, DEFAULT_STICKER_FONT_SIZE_DP);
                tv.setTypeface(null, Typeface.BOLD);
 
-               int finalCount = count;
+               final int finalCount = count;
                tv.setOnClickListener(new OnClickListener() {
                    @Override
                    public void onClick(View v) {
