@@ -150,34 +150,37 @@ public class TimetableView extends LinearLayout {
     }
 
     private void add(final ArrayList<Schedule> schedules, int specIdx) {
-        final int count = specIdx < 0 ? ++stickerCount : specIdx;
+        int count = specIdx < 0 ? ++stickerCount : specIdx;
         Sticker sticker = new Sticker();
         for (Schedule schedule : schedules) {
-            TextView tv = new TextView(context);
+        TextView tv = new TextView(context);
 
-            RelativeLayout.LayoutParams param = createStickerParam(schedule);
-            tv.setLayoutParams(param);
-            tv.setPadding(10, 0, 10, 0);
-            tv.setText(schedule.getClassTitle() + "\n" + schedule.getClassPlace());
-            tv.setTextColor(Color.parseColor("#FFFFFF"));
-            tv.setTextSize(TypedValue.COMPLEX_UNIT_DIP, DEFAULT_STICKER_FONT_SIZE_DP);
-            tv.setTypeface(null, Typeface.BOLD);
+               RelativeLayout.LayoutParams param = createStickerParam(schedule);
+               tv.setLayoutParams(param);
+               tv.setPadding(10, 0, 10, 0);
+               tv.setText(schedule.getClassTitle() + "\n" + schedule.getClassPlace());
+               tv.setTextColor(Color.parseColor("#FFFFFF"));
+               tv.setTextSize(TypedValue.COMPLEX_UNIT_DIP, DEFAULT_STICKER_FONT_SIZE_DP);
+               tv.setTypeface(null, Typeface.BOLD);
 
-            tv.setOnClickListener(new OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    if(stickerSelectedListener != null)
-                        stickerSelectedListener.OnStickerSelected(count, schedules);
-                }
-            });
+               final int finalCount = count;
+               tv.setOnClickListener(new OnClickListener() {
+                   @Override
+                   public void onClick(View v) {
+                       if(stickerSelectedListener != null){
+                           stickerSelectedListener.OnStickerSelected(finalCount, schedules);
+                       }
+                   }
+               });
 
-            sticker.addTextView(tv);
-            sticker.addSchedule(schedule);
-            stickers.put(count, sticker);
-            stickerBox.addView(tv);
+               sticker.addTextView(tv);
+               sticker.addSchedule(schedule);
+               stickers.put(count, sticker);
+               stickerBox.addView(tv);
+               count = count + 1;
+           }
+           setStickerColor();
         }
-        setStickerColor();
-    }
 
     public String createSaveData() {
         return SaveManager.saveSticker(stickers);
